@@ -55,3 +55,7 @@ button {
 #username {
   width: 500px;
 }
+
+.react-datepicker__input-container input {
+  color: #2d3748; /* Custom text color */
+}

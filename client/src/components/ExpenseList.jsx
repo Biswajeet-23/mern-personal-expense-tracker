@@ -3,14 +3,20 @@ import {
   Card,
   CardBody,
   CardHeader,
-  flexbox,
   FormLabel,
   HStack,
   Stack,
   Text,
   useToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Button,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
 import { ChatFill } from "@styled-icons/bootstrap/ChatFill";
 import { Category } from "@styled-icons/boxicons-solid/Category";
@@ -20,15 +26,23 @@ import { Edit } from "@styled-icons/boxicons-solid/Edit";
 
 const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
   const toast = useToast();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+  const cancelRef = useRef();
 
   useEffect(() => {
     fetchExpenses();
   }, [fetchExpenses]);
 
-  const handleDelete = async (id) => {
+  const handleDeleteClick = (id) => {
+    setSelectedExpenseId(id);
+    setIsAlertOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.4:4000/users/expenses/${id}`,
+        `http://127.0.0.4:4000/users/expenses/${selectedExpenseId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -46,6 +60,9 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
       }
     } catch (err) {
       console.error(err.message);
+    } finally {
+      setIsAlertOpen(false);
+      setSelectedExpenseId(null);
     }
   };
 
@@ -101,7 +118,7 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
                   <Box cursor={"pointer"}>
                     <Delete
                       size={30}
-                      onClick={() => handleDelete(expense._id)}
+                      onClick={() => handleDeleteClick(expense._id)}
                       color="red"
                     />
                   </Box>
@@ -120,6 +137,34 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
           <Text>No expenses found.</Text>
         )}
       </Box>
+
+      <AlertDialog
+        isOpen={isAlertOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={() => setIsAlertOpen(false)}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Expense
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure you want to delete this expense? You can't undo this
+              action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={() => setIsAlertOpen(false)}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleDeleteConfirm} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
   );
 };

@@ -97,8 +97,8 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
           <FormControl id="date" mb={4} isRequired>
             <FormLabel>Date</FormLabel>
             <DatePicker
-              showIcon
               id="date"
+              showIcon
               dateFormat="dd/MM/yyyy"
               selected={date}
               onChange={(date) => setDate(date)}

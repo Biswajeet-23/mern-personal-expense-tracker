@@ -49,24 +49,6 @@ const Login = () => {
 
   return (
     <>
-      {/* <form className="login" onSubmit={handleRegister}>
-        <Heading>Login</Heading>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={handleUsername}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={handlePassword}
-        />
-        <Button colorScheme="teal" variant="outline" type="submit">
-          Login
-        </Button>
-      </form> */}
       <Flex alignItems="center" justifyContent="center">
         <form onSubmit={handleRegister}>
           <Heading marginTop={20}>Login</Heading>

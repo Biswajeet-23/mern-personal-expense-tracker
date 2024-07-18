@@ -6,62 +6,26 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import AddExpenses from "./AddExpenses";
 import ExpenseList from "./ExpenseList";
 import EditExpense from "./EditExpense";
 import SelectCategory from "./SelectCategory";
 import CategoryExpenses from "./CategoryExpenses";
+import { ExpensesContext } from "../global_context/ExpenseProvider";
 
 const Expenses = () => {
-  const [expenses, setExpenses] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedExpense, setSelectedExpense] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
-  useEffect(() => {
-    fetchCategories();
-  }, [expenses]);
-
-  const fetchExpenses = useCallback(async () => {
-    try {
-      let url = "http://127.0.0.4:4000/users/expenses";
-      if (selectedCategory) {
-        url += `?category=${selectedCategory}`;
-      }
-      const response = await fetch(url, {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setExpenses(data);
-      } else {
-        console.error("failed to fetch data");
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  }, [selectedCategory]);
-
-  const fetchCategories = useCallback(async () => {
-    try {
-      const response = await fetch("http://127.0.0.4:4000/users/categories", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setCategories(data);
-      } else {
-        console.error(response.message);
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  }, []);
+  const {
+    expenses,
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    fetchExpenses,
+  } = useContext(ExpensesContext);
 
   const handleEdit = (expense) => {
     setSelectedExpense(expense);
