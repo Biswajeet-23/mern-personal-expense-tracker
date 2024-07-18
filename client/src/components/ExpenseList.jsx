@@ -81,7 +81,7 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
                   <Stack spacing={3}>
                     <HStack>
                       <Box>
-                        <CurrencyRupee size={25} />
+                        <CurrencyRupee size={22} />
                       </Box>
                       <Text>{expense.amount.toFixed(2)}</Text>
                     </HStack>

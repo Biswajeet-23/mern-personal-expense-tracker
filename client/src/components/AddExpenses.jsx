@@ -78,6 +78,8 @@ const AddExpenses = ({ fetchExpenses }) => {
       <FormControl id="date" mb={4} isRequired>
         <FormLabel>Date</FormLabel>
         <DatePicker
+          id="date"
+          dateFormat="dd/MM/yyyy"
           showIcon
           selected={date}
           onChange={(date) => setDate(date)}

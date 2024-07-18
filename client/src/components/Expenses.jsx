@@ -107,10 +107,10 @@ const Expenses = () => {
             fetchExpenses={fetchExpenses}
           />
         )}
+        <Box mt={10}>
+          <CategoryExpenses expenses={expenses} />
+        </Box>
       </Flex>
-      <Box width="100%" mt={10}>
-        <CategoryExpenses expenses={expenses} />
-      </Box>
     </Flex>
   );
 };

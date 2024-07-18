@@ -1,5 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Heading, Stack, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Heading,
+  Stack,
+  Select,
+  Card,
+  CardHeader,
+  CardBody,
+  Divider,
+  HStack,
+  Flex,
+} from "@chakra-ui/react";
+import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
+import { Category } from "@styled-icons/boxicons-solid/Category";
+import { PiggyBank } from "@styled-icons/fa-solid/PiggyBank";
 
 const CategoryExpenses = ({ expenses }) => {
   const [timePeriod, setTimePeriod] = useState("monthly");
@@ -54,8 +69,12 @@ const CategoryExpenses = ({ expenses }) => {
     setSpendingByCategory(categorySpending);
   };
 
+  const sortedCategories = Object.entries(spendingByCategory)
+    .sort(([, a], [, b]) => b - a)
+    .map(([category, amount]) => ({ category, amount }));
+
   return (
-    <Box p={5} borderWidth={1} borderRadius="md" mb={4}>
+    <Box p={5} borderWidth={1} borderRadius="md" mb={4} ml={10}>
       <Heading size="md" mb={4}>
         Summary
       </Heading>
@@ -63,24 +82,67 @@ const CategoryExpenses = ({ expenses }) => {
         mb={4}
         value={timePeriod}
         onChange={(e) => setTimePeriod(e.target.value)}
+        width="120px"
         borderColor="#dedcdc"
+        backgroundColor="#2D3748"
+        color={"white"}
         borderWidth={2}
       >
         <option value="daily">Daily</option>
         <option value="weekly">Weekly</option>
         <option value="monthly">Monthly</option>
       </Select>
-      <Text>Total Spending: ${totalSpending.toFixed(2)}</Text>
-      <Heading size="sm" mt={4}>
+      <Card mb={4} width="220px">
+        <CardBody>
+          <Flex alignItems={"center"} gap={7}>
+            <Box>
+              <PiggyBank size={30} />
+            </Box>
+            <Flex direction={"column"}>
+              <HStack>
+                <Heading size="sm">Total Spending</Heading>
+              </HStack>
+              <HStack mt={2}>
+                <Box>
+                  <CurrencyRupee size={22} />
+                </Box>
+                <Text fontSize="xl" fontWeight="bold">
+                  {totalSpending.toFixed(2)}
+                </Text>
+              </HStack>
+            </Flex>
+          </Flex>
+        </CardBody>
+      </Card>
+      <Heading size="sm" mt={4} mb={3}>
         Spending by Category
       </Heading>
-      <Stack spacing={2} mt={2}>
-        {Object.keys(spendingByCategory).map((category) => (
-          <Text key={category}>
-            {category}: ${spendingByCategory[category].toFixed(2)}
-          </Text>
-        ))}
-      </Stack>
+      <Box maxHeight="200px" overflowY="auto" p={2}>
+        <Stack spacing={2}>
+          {sortedCategories.map(({ category, amount }) => (
+            <Card key={category} maxWidth="160px">
+              <CardBody>
+                <Flex direction={"column"} gap={1}>
+                  <HStack>
+                    <Box>
+                      <Category size={15} />
+                    </Box>
+                    <Heading fontSize="sm">{category}</Heading>
+                  </HStack>
+                  <HStack>
+                    <Box>
+                      <CurrencyRupee size={22} />
+                    </Box>
+                    <Text fontSize="xl" fontWeight="bold">
+                      {amount.toFixed(2)}
+                    </Text>
+                  </HStack>
+                </Flex>
+              </CardBody>
+            </Card>
+          ))}
+        </Stack>
+      </Box>
     </Box>
   );
 };

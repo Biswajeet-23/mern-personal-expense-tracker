@@ -37,11 +37,17 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
 
   const toast = useToast();
 
+  const formatDate = (date) => {
+    const offset = date.getTimezoneOffset();
+    const newDate = new Date(date.getTime() - offset * 60 * 1000);
+    return newDate.toISOString().split("T")[0];
+  };
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const updatedExpense = {
-        date: date.toISOString().split("T")[0],
+        date: formatDate(date),
         amount: parseFloat(amount),
         category: category === "Other" ? customCategory : category,
         description,
@@ -90,7 +96,13 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
         <ModalBody>
           <FormControl id="date" mb={4} isRequired>
             <FormLabel>Date</FormLabel>
-            <DatePicker selected={date} onChange={(date) => setDate(date)} />
+            <DatePicker
+              showIcon
+              id="date"
+              dateFormat="dd/MM/yyyy"
+              selected={date}
+              onChange={(date) => setDate(date)}
+            />
           </FormControl>
 
           <FormControl id="amount" mb={4} isRequired>
