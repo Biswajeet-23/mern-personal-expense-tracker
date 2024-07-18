@@ -6,6 +6,9 @@ import {
   userLogout,
   userNewExpenses,
   getUserExpenses,
+  deleteUserExpenses,
+  updateUserExpenses,
+  getUserExpensesCategories,
 } from "../controllers/userController.js";
 import { verifyToken } from "../middlewares/tokenVerification.js";
 
@@ -28,5 +31,14 @@ userRouter.post("/expenses", verifyToken, userNewExpenses);
 
 //get all expense
 userRouter.get("/expenses", verifyToken, getUserExpenses);
+
+//delete expenses
+userRouter.delete("/expenses/:id", verifyToken, deleteUserExpenses);
+
+//update expenses
+userRouter.put("/expenses/:id", verifyToken, updateUserExpenses);
+
+//get all categories
+userRouter.get("/categories", verifyToken, getUserExpensesCategories);
 
 export default userRouter;

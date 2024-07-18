@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 import expenseModel from "../model/expenseModel.js";
+import { response } from "express";
 config();
 
 //user register
@@ -80,7 +81,7 @@ export const userLogout = (req, res) => {
   }
 };
 
-//user expenses
+//create user expenses
 export const userNewExpenses = async (req, res) => {
   try {
     const userId = req.userId;
@@ -105,14 +106,90 @@ export const userNewExpenses = async (req, res) => {
   }
 };
 
+//get all user's expenses
 export const getUserExpenses = async (req, res) => {
   try {
     const userId = req.userId;
-    const userExpenses = await expenseModel.find({ userId });
+    const { category } = req.query;
+    const query = { userId };
+    if (category) {
+      query.category = category;
+    }
+    const userExpenses = await expenseModel.find(query);
     if (!userExpenses) {
       return res.status(400).send({ message: "User not found" });
     }
     res.status(200).send(userExpenses);
+  } catch (err) {
+    res
+      .status(500)
+      .send({ error: "Something is wrong", errorMessage: err.message });
+  }
+};
+
+//delete user's expenses
+export const deleteUserExpenses = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { id } = req.params;
+    // console.log(id);
+    const reponse = await expenseModel.findByIdAndDelete(id);
+    if (!response) {
+      res.status(400).send({ message: "Expense not deleted" });
+    }
+    res.status(200).send({ message: "Expense deleted successfully" });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ error: "Something is wrong", errorMessage: err.message });
+  }
+};
+
+//update user's expenses
+export const updateUserExpenses = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { date, amount, category, description } = req.body;
+    const updateExpense = await expenseModel.findByIdAndUpdate(
+      id,
+      { date, amount, category, description },
+      { new: true, runValidators: true }
+    );
+    if (!updateExpense) {
+      res.status(400).send({ message: "Expense not updated" });
+    }
+    res.status(200).send({ message: "Expense update successfully" });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ error: "Something is wrong", errorMessage: err.message });
+  }
+};
+
+//get user's expenses categories
+export const getUserExpensesCategories = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const categories = await expenseModel.find(
+      { userId },
+      { category: 1, _id: 1 }
+    );
+
+    // Use a Set to store unique categories
+    const uniqueCategories = [];
+    const categorySet = new Set();
+
+    categories.forEach((category) => {
+      if (!categorySet.has(category.category)) {
+        categorySet.add(category.category);
+        uniqueCategories.push(category);
+      }
+    });
+    // const categories = await expenseModel.distinct("category", { userId });
+    if (!userId) {
+      res.status(400).send({ message: "User not found" });
+    }
+    res.status(200).send(uniqueCategories);
   } catch (err) {
     res
       .status(500)

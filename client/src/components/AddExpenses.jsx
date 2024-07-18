@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddExpenses = ({ fetchExpenses }) => {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(null);
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
@@ -21,11 +21,17 @@ const AddExpenses = ({ fetchExpenses }) => {
 
   const toast = useToast();
 
+  const formatDate = (date) => {
+    const offset = date.getTimezoneOffset();
+    const newDate = new Date(date.getTime() - offset * 60 * 1000);
+    return newDate.toISOString().split("T")[0];
+  };
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const expense = {
-        date: date.toISOString().split("T")[0],
+        date: formatDate(date),
         amount: parseFloat(amount),
         category: category === "Other" ? customCategory : category,
         description,
@@ -48,6 +54,11 @@ const AddExpenses = ({ fetchExpenses }) => {
           isClosable: true,
         });
         fetchExpenses();
+        setDate(null);
+        setAmount("");
+        setCategory("");
+        setCustomCategory("");
+        setDescription("");
       } else {
         toast({
           title: "Error.",
@@ -66,7 +77,11 @@ const AddExpenses = ({ fetchExpenses }) => {
     <form onSubmit={handleSubmit}>
       <FormControl id="date" mb={4} isRequired>
         <FormLabel>Date</FormLabel>
-        <DatePicker selected={date} onChange={(date) => setDate(date)} />
+        <DatePicker
+          showIcon
+          selected={date}
+          onChange={(date) => setDate(date)}
+        />
       </FormControl>
 
       <FormControl id="amount" mb={4} isRequired>
@@ -76,12 +91,19 @@ const AddExpenses = ({ fetchExpenses }) => {
           step="0.01"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+          borderColor="#dedcdc"
+          borderWidth={2}
         />
       </FormControl>
 
       <FormControl id="category" mb={4} isRequired>
         <FormLabel>Category</FormLabel>
-        <Select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <Select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          borderColor="#dedcdc"
+          borderWidth={2}
+        >
           <option value="" disabled hidden>
             Select category
           </option>
@@ -97,6 +119,8 @@ const AddExpenses = ({ fetchExpenses }) => {
             placeholder="Enter custom category"
             value={customCategory}
             onChange={(e) => setCustomCategory(e.target.value)}
+            borderColor="#dedcdc"
+            borderWidth={2}
           />
         )}
       </FormControl>
@@ -106,6 +130,8 @@ const AddExpenses = ({ fetchExpenses }) => {
         <Textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          borderColor="#dedcdc"
+          borderWidth={2}
         />
       </FormControl>
 
