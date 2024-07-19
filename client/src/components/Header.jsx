@@ -4,33 +4,29 @@ import { UserContext } from "../global_context/UserContext";
 import { Button, Flex } from "@chakra-ui/react";
 
 const Header = () => {
-  const { setUserInfo, userInfo } = useContext(UserContext);
+  const { setUserInfo, userInfo, logout } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetch("http://127.0.0.4:4000/users/profile", {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((user) => {
-          setUserInfo(user);
-        })
-        .catch((error) => {
-          console.error("Error:", error.message);
-        });
-    };
-    fetchData();
-  }, [setUserInfo]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await fetch("http://127.0.0.4:4000/users/profile", {
+  //       method: "GET",
+  //       credentials: "include",
+  //     })
+  //       .then((response) => response.json())
+  //       .then((user) => {
+  //         setUserInfo(user);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error:", error.message);
+  //       });
+  //   };
+  //   fetchData();
+  // }, [setUserInfo]);
 
-  const logout = async () => {
-    const response = await fetch("http://127.0.0.4:4000/users/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-    setUserInfo(null);
-    if (response.status === 200) navigate("/login");
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
   };
 
   const username = userInfo?.username;
@@ -43,7 +39,7 @@ const Header = () => {
           {username ? (
             <Flex gap={4}>
               <p>Hi {username}</p>
-              <Button colorScheme="red" onClick={logout}>
+              <Button colorScheme="red" onClick={handleLogout}>
                 Logout
               </Button>
             </Flex>

@@ -42,7 +42,7 @@ export const userLogin = async (req, res) => {
       });
       return res
         .status(200)
-        .send({ message: "Login successfull", username, userId });
+        .send({ message: "Login successfull", username, userId, token });
     } else {
       return res.status(401).send({ message: "Invalid credentials" });
     }

@@ -16,7 +16,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUserInfo } = useContext(UserContext);
+  const { setUserInfo, setToken } = useContext(UserContext);
 
   const handleRegister = async (event) => {
     try {
@@ -29,8 +29,9 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        const { username, userId } = data;
+        const { username, userId, token } = data;
         setUserInfo({ id: userId, username: username });
+        setToken(token);
         navigate("/");
       } else {
         alert("login failed");
@@ -43,9 +44,6 @@ const Login = () => {
   const handleUsername = (e) => setUsername(e.target.value);
 
   const handlePassword = (e) => setPassword(e.target.value);
-
-  const isErrorUsername = username === "";
-  const isErrorPassword = password === "";
 
   return (
     <>

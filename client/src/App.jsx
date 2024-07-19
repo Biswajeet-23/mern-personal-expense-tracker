@@ -9,6 +9,7 @@ import Expenses from "./components/Expenses";
 import Dashboard from "./pages/home_pages/Dashboard";
 import Settings from "./pages/home_pages/Settings";
 import { ExpenseProvider } from "./global_context/ExpenseProvider";
+import PrivateRoute from "./components/private_route/PrivateRoute.jsx";
 
 function App() {
   return (
@@ -16,10 +17,38 @@ function App() {
       <ExpenseProvider>
         <Layout />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route path="expences" element={<Expenses />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="settings" element={<Settings />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          >
+            <Route
+              path="expences"
+              element={
+                <PrivateRoute>
+                  <Expenses />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              }
+            />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
