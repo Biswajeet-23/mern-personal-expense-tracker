@@ -51,7 +51,12 @@ const Login = () => {
   const shadowDark = useColorModeValue("#bebebe", "#141414");
 
   return (
-    <Flex justifyContent="center" minHeight="90vh" alignItems="center">
+    <Flex
+      justifyContent="center"
+      minHeight="90vh"
+      alignItems="center"
+      bg={boxColor}
+    >
       <Box
         bg={boxColor}
         width="500px"
