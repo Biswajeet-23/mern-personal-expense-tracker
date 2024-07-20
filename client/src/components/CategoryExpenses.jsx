@@ -79,8 +79,8 @@ const CategoryExpenses = ({ expenses }) => {
     "background.secondary"
   );
 
-  const textColor = useColorModeValue("text.primaryDark", "text.primary");
-  const bgColor = useColorModeValue("#3182CE", "#90CDF4");
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+  const bgColor = useColorModeValue("#3182CE", "#78adcf");
 
   return (
     <Box mb={4} ml={10}>
@@ -93,7 +93,6 @@ const CategoryExpenses = ({ expenses }) => {
           value={timePeriod}
           onChange={(e) => setTimePeriod(e.target.value)}
           width="120px"
-          borderColor="#dedcdc"
           backgroundColor={bgColor}
           color={textColor}
           borderWidth={2}

@@ -7,14 +7,13 @@ const SelectCategory = ({
   categories,
 }) => {
   const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const bgColor = useColorModeValue("#3182CE", "#90CDF4");
+  const bgColor = useColorModeValue("#3182CE", "#78adcf");
 
   return (
     <Select
       value={selectedCategory}
       onChange={handleCategoryChange}
       width={270}
-      borderColor="#dedcdc"
       backgroundColor={bgColor}
       color={textColor}
       borderWidth={2}
