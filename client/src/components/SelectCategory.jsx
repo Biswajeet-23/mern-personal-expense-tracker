@@ -1,4 +1,4 @@
-import { color, Select } from "@chakra-ui/react";
+import { color, Select, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 const SelectCategory = ({
@@ -6,14 +6,20 @@ const SelectCategory = ({
   handleCategoryChange,
   categories,
 }) => {
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+  const bgColor = useColorModeValue(
+    "button.secondary",
+    "hoverbutton.secondary"
+  );
+
   return (
     <Select
       value={selectedCategory}
       onChange={handleCategoryChange}
       width={270}
       borderColor="#dedcdc"
-      backgroundColor="#2D3748"
-      color={"white"}
+      bg={bgColor}
+      color={textColor}
       borderWidth={2}
     >
       <option hidden>Select Category</option>
