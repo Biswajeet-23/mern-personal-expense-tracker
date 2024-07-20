@@ -43,7 +43,7 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
   const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.4:4000/users/expenses/${selectedExpenseId}`,
+        `https://mern-personal-expense-tracker-backend.onrender.com/users/expenses/${selectedExpenseId}`,
         {
           method: "DELETE",
           credentials: "include",

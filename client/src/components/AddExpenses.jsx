@@ -38,14 +38,17 @@ const AddExpenses = ({ fetchExpenses }) => {
         description,
       };
       // console.log(JSON.stringify(expense));
-      let response = await fetch("http://127.0.0.4:4000/users/expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(expense),
-        credentials: "include",
-      });
+      let response = await fetch(
+        "https://mern-personal-expense-tracker-backend.onrender.com/users/expenses",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(expense),
+          credentials: "include",
+        }
+      );
       if (response.status === 200) {
         toast({
           title: "Expense added.",

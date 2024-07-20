@@ -17,7 +17,8 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchExpenses = useCallback(async () => {
     try {
-      let url = "http://127.0.0.4:4000/users/expenses";
+      let url =
+        "https://mern-personal-expense-tracker-backend.onrender.com/users/expenses";
       if (selectedCategory) {
         url += `?category=${selectedCategory}`;
       }
@@ -38,10 +39,13 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch("http://127.0.0.4:4000/users/categories", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://mern-personal-expense-tracker-backend.onrender.com/users/categories",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setCategories(data);

@@ -53,7 +53,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
         description,
       };
       const response = await fetch(
-        `http://127.0.0.4:4000/users/expenses/${expense._id}`,
+        `https://mern-personal-expense-tracker-backend.onrender.com/users/expenses/${expense._id}`,
         {
           method: "PUT",
           headers: {
