@@ -79,7 +79,7 @@ const CategoryExpenses = ({ expenses }) => {
     "background.secondary"
   );
 
-  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+  const textColor = useColorModeValue("text.primaryDark", "text.primary");
   const bgColor = useColorModeValue("#3182CE", "#90CDF4");
 
   return (
