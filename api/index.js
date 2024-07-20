@@ -36,7 +36,7 @@ const PORT = process.env.PORT || 4000;
 //routers
 app.use("/users", userRouter);
 
-// app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`App is Listening on PORT ${PORT}`);
   dbConnect();
 });
