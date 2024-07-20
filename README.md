@@ -1,4 +1,4 @@
-(https://github.com/Biswajeet-23/mern-personal-expense-tracker/blob/main/client/assets/dashboard.png)
+![Dashboard Screenshot](https://github.com/Biswajeet-23/mern-personal-expense-tracker/blob/main/client/assets/dashboard.png)
 # Personal Expense Tracker
 
 ## Overview
