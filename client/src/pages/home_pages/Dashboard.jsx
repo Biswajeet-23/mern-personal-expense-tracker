@@ -93,11 +93,6 @@ const Dashboard = () => {
     marginBottom: "10px",
   };
 
-  const borderColor = useColorModeValue(
-    "borders.default",
-    "borders.defaultDark"
-  );
-
   return (
     <Box p={5}>
       {expenses.length > 0 ? (
@@ -116,9 +111,16 @@ const Dashboard = () => {
                     labelLine={false}
                     outerRadius="80%"
                     dataKey="value"
+                    stroke="none"
                   >
                     {categoryData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={getRandomColor()} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={getRandomColor()}
+                        style={{
+                          filter: "drop-shadow(2px 2px 4px rgba(0,0,0,0.2))",
+                        }}
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
