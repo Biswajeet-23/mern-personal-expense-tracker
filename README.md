@@ -100,6 +100,9 @@ The Personal Expense Tracker application allows users to manage their expenses e
 
 ### Register and Login
 - Register a new account or log in with existing credentials.
+- For testing purposes, you can use the following credentials:
+  - **Username:** `dummy01`
+  - **Password:** `1234`
 
 ### Add Expense
 - Navigate to the "Add Expense" section and fill in the required details.
