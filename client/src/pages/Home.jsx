@@ -2,17 +2,23 @@ import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Expenses from "../components/Expenses";
 import SideBar from "../components/SideBar";
 import { Outlet, useLocation } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../global_context/UserContext";
 
 const Home = () => {
   const { pathname } = useLocation();
-  const sidebarBg = useColorModeValue(
-    "background.secondary",
-    "background.secondaryDark"
-  );
-  const mainBg = useColorModeValue("background.light", "background.dark");
-  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+
+  const sidebarBg = useColorModeValue("#f0f0f3", "#1e1e1e");
+  const mainBg = useColorModeValue("#f0f0f3", "#1e1e1e");
+  const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
     <Grid
@@ -25,32 +31,17 @@ const Home = () => {
       height={"90vh"}
       color={textColor}
       fontWeight="bold"
+      mt={2}
     >
-      <GridItem
-        pl="2"
-        bg={sidebarBg}
-        area={"aside"}
-        borderRightWidth="3px"
-        borderTopWidth="3px"
-        borderBottomWidth="3px"
-        borderColor={useColorModeValue(
-          "borders.default",
-          "borders.defaultDark"
-        )}
-        borderRadius="md"
-      >
+      <GridItem style={neumorphismStyle} ml={2} bg={sidebarBg} area={"aside"}>
         <SideBar />
       </GridItem>
       <GridItem
+        style={neumorphismStyle}
         pl="2"
-        bg={mainBg}
         area={"main"}
-        borderRadius="md"
-        borderWidth="3px" // Increased border width
-        borderColor={useColorModeValue(
-          "borders.default",
-          "borders.defaultDark"
-        )}
+        borderRadius="15px"
+        boxShadow={`8px 8px 16px ${shadowDark}, -8px -8px 16px ${shadowLight}`}
       >
         {pathname === "/" ? <Expenses /> : <Outlet />}
       </GridItem>

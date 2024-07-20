@@ -27,39 +27,32 @@ const SideBar = () => {
     fontWeight: "500",
     _hover: {
       textDecoration: "none",
-      color: useColorModeValue("accent.secondary", "background.secondary"),
-      bg: useColorModeValue("hoverbutton.light", "hoverbutton.dark"),
+      color: useColorModeValue("#4a90e2", "#4a90e2"),
+      bg: useColorModeValue("#e0e0e0", "#333333"),
     },
     _activeLink: {
-      color: useColorModeValue("accent.secondary", "background.light"),
+      color: useColorModeValue("#4a90e2", "#4a90e2"),
     },
   };
 
   const isActive = (path) => location.pathname === path;
 
-  const sidebarBg = useColorModeValue(
-    "background.secondary",
-    "background.secondaryDark"
-  );
-  const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const activeLinkBg = useColorModeValue(
-    "hoverbutton.light",
-    "hoverbutton.dark"
-  );
-  const activeLinkColor = useColorModeValue(
-    "accent.secondary",
-    "background.secondary"
-  );
+  const sidebarBg = useColorModeValue("#f0f0f3", "#1e1e1e");
+  const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
+
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
-    <Box
-      p={2}
-      height="100%"
-      bg={sidebarBg}
-      borderRightWidth="1px"
-      borderColor={useColorModeValue("borders.default", "borders.defaultDark")}
-      borderRadius="md"
-    >
+    <Box p={2} height="100%" style={neumorphismStyle} bg={sidebarBg}>
       <Flex mb={5} mt={5} flexDirection={"column"} alignItems={"center"}>
         <Avatar size="md" />
         <Box mt={2}>
@@ -72,8 +65,9 @@ const SideBar = () => {
         <Flex
           {...linkStyles}
           to="/"
-          bg={isActive("/") ? activeLinkBg : "transparent"}
-          color={isActive("/") ? activeLinkColor : textColor}
+          bg={isActive("/") ? "#e0e0e0" : "transparent"}
+          color={isActive("/") ? "#4a90e2" : textColor}
+          boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
         >
           <Icon as={ExpensesIcon} boxSize={5} mr={2} />
           <Text>Expenses</Text>
@@ -81,8 +75,9 @@ const SideBar = () => {
         <Flex
           {...linkStyles}
           to="/dashboard"
-          bg={isActive("/dashboard") ? activeLinkBg : "transparent"}
-          color={isActive("/dashboard") ? activeLinkColor : textColor}
+          bg={isActive("/dashboard") ? "#e0e0e0" : "transparent"}
+          color={isActive("/dashboard") ? "#4a90e2" : textColor}
+          boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
         >
           <Icon as={HomeIcon} boxSize={5} mr={2} />
           <Text>Dashboard</Text>
@@ -90,8 +85,9 @@ const SideBar = () => {
         <Flex
           {...linkStyles}
           to="/settings"
-          bg={isActive("/settings") ? activeLinkBg : "transparent"}
-          color={isActive("/settings") ? activeLinkColor : textColor}
+          bg={isActive("/settings") ? "#e0e0e0" : "transparent"}
+          color={isActive("/settings") ? "#4a90e2" : textColor}
+          boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
         >
           <Icon as={SettingsIcon} boxSize={5} mr={2} />
           <Text>Settings</Text>

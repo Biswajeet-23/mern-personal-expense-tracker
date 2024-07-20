@@ -7,9 +7,9 @@ import {
   Select,
   Textarea,
   useToast,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../global_context/UserContext";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BASE_URL } from "../utils/config";
@@ -30,15 +30,15 @@ const AddExpenses = ({ fetchExpenses }) => {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
       const expense = {
         date: formatDate(date),
         amount: parseFloat(amount),
         category: category === "Other" ? customCategory : category,
         description,
       };
-      // console.log(JSON.stringify(expense));
+
       let response = await fetch(`${BASE_URL}/users/expenses`, {
         method: "POST",
         headers: {
@@ -47,6 +47,7 @@ const AddExpenses = ({ fetchExpenses }) => {
         body: JSON.stringify(expense),
         credentials: "include",
       });
+
       if (response.status === 200) {
         toast({
           title: "Expense added.",
@@ -75,17 +76,34 @@ const AddExpenses = ({ fetchExpenses }) => {
     }
   };
 
+  // Define color values based on color mode
+  const inputBg = useColorModeValue("#e0e0e0", "#1a1a1a");
+  const inputBorder = useColorModeValue("#e0e0e0", "#1f1f1f");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+
+  const neumorphismStyle = {
+    backgroundColor: inputBg,
+    borderColor: inputBorder,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+    color: textColor,
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <FormControl id="date" mb={4} isRequired>
         <FormLabel>Date</FormLabel>
-        <Box>
+        <Box style={neumorphismStyle}>
           <DatePicker
             id="date"
             dateFormat="dd/MM/yyyy"
             showIcon
             selected={date}
             onChange={(date) => setDate(date)}
+            customInput={<Input style={neumorphismStyle} />}
           />
         </Box>
       </FormControl>
@@ -97,8 +115,7 @@ const AddExpenses = ({ fetchExpenses }) => {
           step="0.01"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          borderColor="#dedcdc"
-          borderWidth={2}
+          style={neumorphismStyle}
         />
       </FormControl>
 
@@ -107,8 +124,7 @@ const AddExpenses = ({ fetchExpenses }) => {
         <Select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          borderColor="#dedcdc"
-          borderWidth={2}
+          style={neumorphismStyle}
         >
           <option value="" disabled hidden>
             Select category
@@ -125,8 +141,7 @@ const AddExpenses = ({ fetchExpenses }) => {
             placeholder="Enter custom category"
             value={customCategory}
             onChange={(e) => setCustomCategory(e.target.value)}
-            borderColor="#dedcdc"
-            borderWidth={2}
+            style={neumorphismStyle}
           />
         )}
       </FormControl>
@@ -136,12 +151,18 @@ const AddExpenses = ({ fetchExpenses }) => {
         <Textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          borderColor="#dedcdc"
-          borderWidth={2}
+          style={neumorphismStyle}
         />
       </FormControl>
 
-      <Button type="submit" colorScheme="blue" width="140px">
+      <Button
+        type="submit"
+        colorScheme="blue"
+        width="140px"
+        boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
+        borderRadius="5px"
+        padding="5px 10px"
+      >
         Add Expense
       </Button>
     </form>

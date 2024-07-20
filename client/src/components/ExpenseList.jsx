@@ -1,8 +1,5 @@
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   FormLabel,
   HStack,
   Stack,
@@ -17,7 +14,7 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
 import { ChatFill } from "@styled-icons/bootstrap/ChatFill";
 import { Category } from "@styled-icons/boxicons-solid/Category";
@@ -68,12 +65,19 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
     }
   };
 
-  const bdColor = useColorModeValue(
-    "border.secondaryDark",
-    "background.secondary"
-  );
+  // Define color values based on color mode
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
   const deleteBtnColor = useColorModeValue("red", "#e8524d");
   const editBtnColor = useColorModeValue("#bfb119", "#ede268");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
     <Box ml={15}>
@@ -82,31 +86,28 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
         maxHeight="500px"
         overflowY="auto"
         p={2}
-        borderWidth={1}
         borderRadius="md"
+        style={neumorphismStyle}
       >
         {expenses.length > 0 ? (
           expenses.map((expense) => (
-            <Card
+            <Box
               key={expense._id}
               p={4}
               mb={4}
               width={500}
-              direction={{ base: "column", sm: "row" }}
               boxShadow={"lg"}
               borderWidth="1px"
-              borderColor={bdColor}
+              style={neumorphismStyle}
             >
-              <CardHeader width={190}>
+              <HStack justifyContent="space-between">
                 <HStack spacing={1}>
                   <Box>
                     <Category size={25} />
                   </Box>
                   <Text>{expense.category}</Text>
                 </HStack>
-              </CardHeader>
-              <CardBody width={350}>
-                <HStack justifyContent={"space-between"}>
+                <HStack justifyContent="space-between" width="100%">
                   <Stack spacing={3}>
                     <HStack>
                       <Box>
@@ -127,23 +128,25 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
                       <Text>{expense.description}</Text>
                     </HStack>
                   </Stack>
-                  <Box cursor={"pointer"}>
-                    <Delete
-                      size={30}
-                      onClick={() => handleDeleteClick(expense._id)}
-                      color={deleteBtnColor}
-                    />
-                  </Box>
-                  <Box cursor={"pointer"}>
-                    <Edit
-                      size={30}
-                      color={editBtnColor}
-                      onClick={() => onEdit(expense)}
-                    />
-                  </Box>
+                  <HStack>
+                    <Box cursor={"pointer"}>
+                      <Delete
+                        size={30}
+                        onClick={() => handleDeleteClick(expense._id)}
+                        color={deleteBtnColor}
+                      />
+                    </Box>
+                    <Box cursor={"pointer"}>
+                      <Edit
+                        size={30}
+                        color={editBtnColor}
+                        onClick={() => onEdit(expense)}
+                      />
+                    </Box>
+                  </HStack>
                 </HStack>
-              </CardBody>
-            </Card>
+              </HStack>
+            </Box>
           ))
         ) : (
           <Text>No expenses found.</Text>

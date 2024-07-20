@@ -3,7 +3,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Flex,
+  Box,
   Select,
   Textarea,
   useToast,
@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -88,22 +89,55 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
     }
   };
 
+  // Define color values based on color mode
+  const bgColor = useColorModeValue("#f0f0f3", "#2c2c2c");
+  const bdColor = useColorModeValue("#e0e0e0", "#1f1f1f");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderColor: bdColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        style={{
+          backgroundColor: bgColor,
+          borderColor: bdColor,
+          borderRadius: "15px",
+          borderWidth: "2px",
+        }}
+      >
         <ModalHeader>Edit Expense</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl id="date" mb={4} isRequired>
             <FormLabel>Date</FormLabel>
-            <DatePicker
-              id="date"
-              showIcon
-              dateFormat="dd/MM/yyyy"
-              selected={date}
-              onChange={(date) => setDate(date)}
-            />
+            <Box
+              p={2}
+              borderWidth="1px"
+              borderRadius="md"
+              style={{
+                backgroundColor: bgColor,
+                borderColor: bdColor,
+                borderRadius: "15px",
+                borderWidth: "2px",
+              }}
+            >
+              <DatePicker
+                id="date"
+                showIcon
+                dateFormat="dd/MM/yyyy"
+                selected={date}
+                onChange={(date) => setDate(date)}
+              />
+            </Box>
           </FormControl>
 
           <FormControl id="amount" mb={4} isRequired>
@@ -113,6 +147,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
               step="0.01"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              style={neumorphismStyle}
             />
           </FormControl>
 
@@ -121,6 +156,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
             <Select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              style={neumorphismStyle}
             >
               <option value="" disabled hidden>
                 Select category
@@ -137,6 +173,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
                 placeholder="Enter custom category"
                 value={customCategory}
                 onChange={(e) => setCustomCategory(e.target.value)}
+                style={neumorphismStyle}
               />
             )}
           </FormControl>
@@ -146,6 +183,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              style={neumorphismStyle}
             />
           </FormControl>
         </ModalBody>

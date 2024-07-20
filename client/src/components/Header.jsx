@@ -13,22 +13,27 @@ const Header = () => {
     navigate("/login");
   };
 
-  const headerBg = useColorModeValue(
-    "background.secondary",
-    "theme.background.secondaryDark"
-  );
-  const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const linkColor = useColorModeValue("accent.primary", "accent.primary");
-  const linkHoverColor = useColorModeValue(
-    "accent.secondary",
-    "accent.secondary"
-  );
+  const headerBg = useColorModeValue("#f0f0f3", "#1e1e1e");
+  const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
+  const linkColor = useColorModeValue("#f97316", "#f97316");
+  const linkHoverColor = useColorModeValue("#4a90e2", "#4a90e2");
+
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
     <Flex
+      style={neumorphismStyle}
       justifyContent={"space-between"}
       padding={3}
-      bg={headerBg}
       color={textColor}
       alignItems="center"
     >
@@ -43,6 +48,7 @@ const Header = () => {
             variant="solid"
             onClick={handleLogout}
             ml={4}
+            boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
           >
             Logout
           </Button>
@@ -54,9 +60,16 @@ const Header = () => {
                 color: linkColor,
                 textDecoration: "none",
               }}
-              _hover={{ color: linkHoverColor }}
             >
-              <Text fontWeight="700">Login</Text>
+              <Text
+                fontWeight="700"
+                _hover={{ color: linkHoverColor }}
+                boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
+                borderRadius="5px"
+                padding="5px 10px"
+              >
+                Login
+              </Text>
             </Link>
             <Link
               to="/register"
@@ -64,9 +77,16 @@ const Header = () => {
                 color: linkColor,
                 textDecoration: "none",
               }}
-              _hover={{ color: linkHoverColor }}
             >
-              <Text fontWeight="700">Register</Text>
+              <Text
+                fontWeight="700"
+                _hover={{ color: linkHoverColor }}
+                boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
+                borderRadius="5px"
+                padding="5px 10px"
+              >
+                Register
+              </Text>
             </Link>
           </>
         )}

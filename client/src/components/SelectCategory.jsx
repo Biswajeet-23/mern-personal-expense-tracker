@@ -1,4 +1,4 @@
-import { color, Select, useColorModeValue } from "@chakra-ui/react";
+import { Select, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 const SelectCategory = ({
@@ -6,8 +6,20 @@ const SelectCategory = ({
   handleCategoryChange,
   categories,
 }) => {
+  // Define color values based on color mode
   const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const bgColor = useColorModeValue("#3182CE", "#78adcf");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+  const borderColor = useColorModeValue("#e0e0e0", "#1f1f1f");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+    borderRadius: "15px",
+    padding: "10px",
+    marginBottom: "10px",
+  };
 
   return (
     <Select
@@ -17,6 +29,9 @@ const SelectCategory = ({
       backgroundColor={bgColor}
       color={textColor}
       borderWidth={2}
+      borderColor={borderColor}
+      borderRadius="15px"
+      boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
     >
       <option hidden>Select Category</option>
       <option value="none">None</option>

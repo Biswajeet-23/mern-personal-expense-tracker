@@ -26,76 +26,89 @@ const Register = () => {
       body: JSON.stringify({ username, email, password }),
     });
     if (response.status === 201) {
-      alert("registeration successful");
+      alert("Registration successful");
       setTimeout(() => {
         navigate("/login");
       }, 500);
-    } else alert("registeration failed");
+    } else alert("Registration failed");
   };
 
   const handleUsername = (e) => setUsername(e.target.value);
-
   const handlePassword = (e) => setPassword(e.target.value);
-
   const handleEmail = (e) => setEmail(e.target.value);
 
-  const boxColor = useColorModeValue(
-    "hoverbutton.secondary",
-    "background.secondaryDark"
-  );
-  const inputColor = useColorModeValue("background.light", "background.dark");
+  const boxBg = useColorModeValue("#f0f0f3", "#1e1e1e");
+  const inputBg = useColorModeValue("#e0e0e0", "#333333");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#bebebe", "#141414");
+  const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
 
   return (
     <>
-      <Flex justifyContent={"center"} minHeight="90vh" alignItems={"center"}>
+      <Flex justifyContent="center" minHeight="90vh" alignItems="center">
         <Box
-          bg={boxColor}
-          width={"500px"}
-          borderRadius={15}
-          borderWidth={2}
-          borderColor={"white"}
+          bg={boxBg}
+          width="500px"
+          borderRadius="15px"
+          boxShadow={`8px 8px 16px ${shadowDark}, -8px -8px 16px ${shadowLight}`}
+          padding="40px"
         >
           <Flex
             justifyContent="center"
             direction="column"
             alignItems="center"
             height="100%"
-            mb={10}
           >
             <form onSubmit={handleRegister}>
-              <Heading marginTop={20}>Register</Heading>
-              <FormControl isRequired marginTop={20}>
-                <FormLabel>Username</FormLabel>
+              <Heading marginBottom={10} textAlign="center" color={textColor}>
+                Register
+              </Heading>
+              <FormControl isRequired>
+                <FormLabel color={textColor}>Username</FormLabel>
                 <Input
                   id="username"
                   type="text"
                   value={username}
+                  backgroundColor={inputBg}
+                  boxShadow={`inset 4px 4px 8px ${shadowDark}, inset -4px -4px 8px ${shadowLight}`}
+                  border="none"
+                  borderRadius="10px"
                   onChange={handleUsername}
-                  backgroundColor={inputColor}
+                  marginBottom={4}
+                  color={textColor}
                 />
-                <FormLabel marginTop={5}>Email</FormLabel>
+                <FormLabel color={textColor}>Email</FormLabel>
                 <Input
                   id="email"
                   type="email"
                   value={email}
+                  backgroundColor={inputBg}
+                  boxShadow={`inset 4px 4px 8px ${shadowDark}, inset -4px -4px 8px ${shadowLight}`}
+                  border="none"
+                  borderRadius="10px"
                   onChange={handleEmail}
-                  backgroundColor={inputColor}
+                  marginBottom={4}
+                  color={textColor}
                 />
-                <FormLabel marginTop={5}>Password</FormLabel>
+                <FormLabel color={textColor}>Password</FormLabel>
                 <Input
                   id="password"
                   type="password"
                   value={password}
+                  backgroundColor={inputBg}
+                  boxShadow={`inset 4px 4px 8px ${shadowDark}, inset -4px -4px 8px ${shadowLight}`}
+                  border="none"
+                  borderRadius="10px"
                   onChange={handlePassword}
-                  backgroundColor={inputColor}
+                  marginBottom={4}
+                  color={textColor}
                 />
-
                 <Button
                   colorScheme="teal"
-                  type="submit"
-                  marginTop={5}
                   width="100%"
-                  mb={4}
+                  type="submit"
+                  borderRadius="10px"
+                  boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
                 >
                   Register
                 </Button>

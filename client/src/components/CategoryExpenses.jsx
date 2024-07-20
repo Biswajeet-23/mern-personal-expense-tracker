@@ -6,9 +6,7 @@ import {
   Stack,
   Select,
   Card,
-  CardHeader,
   CardBody,
-  Divider,
   HStack,
   Flex,
   useColorModeValue,
@@ -74,40 +72,41 @@ const CategoryExpenses = ({ expenses }) => {
     .sort(([, a], [, b]) => b - a)
     .map(([category, amount]) => ({ category, amount }));
 
-  const bdColor = useColorModeValue(
-    "border.secondaryDark",
-    "background.secondary"
-  );
+  //Neumorphism styles
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
 
-  const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const bgColor = useColorModeValue("#3182CE", "#78adcf");
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+    borderRadius: "15px",
+    padding: "10px",
+    marginBottom: "10px",
+  };
 
   return (
     <Box mb={4} ml={10}>
       <Heading size="md" mb={4}>
         Summary
       </Heading>
-      <Box borderWidth={1} borderRadius="md" p={2}>
+      <Box style={neumorphismStyle}>
         <Select
           mb={4}
           value={timePeriod}
           onChange={(e) => setTimePeriod(e.target.value)}
           width="120px"
-          backgroundColor={bgColor}
-          color={textColor}
-          borderWidth={2}
+          borderWidth={0}
+          style={{
+            ...neumorphismStyle,
+            backgroundColor: bgColor,
+          }}
         >
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
         </Select>
-        <Card
-          mb={4}
-          width="220px"
-          boxShadow={"lg"}
-          borderWidth="1px"
-          borderColor={bdColor}
-        >
+        <Card style={neumorphismStyle}>
           <CardBody>
             <Flex alignItems={"center"} gap={7}>
               <Box>
@@ -133,22 +132,10 @@ const CategoryExpenses = ({ expenses }) => {
       <Heading size="sm" mt={4} mb={3}>
         Spending by Category
       </Heading>
-      <Box
-        maxHeight="200px"
-        overflowY="auto"
-        p={2}
-        borderWidth={1}
-        borderRadius="md"
-      >
+      <Box maxHeight="200px" overflowY="auto" p={2} style={neumorphismStyle}>
         <Stack spacing={2}>
           {sortedCategories.map(({ category, amount }) => (
-            <Card
-              key={category}
-              maxWidth="160px"
-              boxShadow={"lg"}
-              borderWidth="1px"
-              borderColor={bdColor}
-            >
+            <Card key={category} style={neumorphismStyle}>
               <CardBody>
                 <Flex direction={"column"} gap={1}>
                   <HStack>
