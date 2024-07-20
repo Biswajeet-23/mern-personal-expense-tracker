@@ -12,6 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../global_context/UserContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { BASE_URL } from "../utils/config";
 
 const AddExpenses = ({ fetchExpenses }) => {
   const [date, setDate] = useState(null);
@@ -38,17 +39,14 @@ const AddExpenses = ({ fetchExpenses }) => {
         description,
       };
       // console.log(JSON.stringify(expense));
-      let response = await fetch(
-        "https://mern-personal-expense-tracker-backend.onrender.com/users/expenses",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(expense),
-          credentials: "include",
-        }
-      );
+      let response = await fetch(`${BASE_URL}/users/expenses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(expense),
+        credentials: "include",
+      });
       if (response.status === 200) {
         toast({
           title: "Expense added.",

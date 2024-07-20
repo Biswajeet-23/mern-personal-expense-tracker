@@ -24,6 +24,7 @@ import { Category } from "@styled-icons/boxicons-solid/Category";
 import { CalendarDateFill } from "@styled-icons/bootstrap/CalendarDateFill";
 import { Delete } from "@styled-icons/material-rounded/Delete";
 import { Edit } from "@styled-icons/boxicons-solid/Edit";
+import { BASE_URL } from "../utils/config";
 
 const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
   const toast = useToast();
@@ -43,7 +44,7 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
   const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(
-        `https://mern-personal-expense-tracker-backend.onrender.com/users/expenses/${selectedExpenseId}`,
+        `${BASE_URL}/users/expenses/${selectedExpenseId}`,
         {
           method: "DELETE",
           credentials: "include",

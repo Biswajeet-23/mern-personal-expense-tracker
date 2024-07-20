@@ -18,6 +18,7 @@ import {
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { BASE_URL } from "../utils/config";
 
 const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
   const [date, setDate] = useState(new Date(expense.date));
@@ -53,7 +54,7 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
         description,
       };
       const response = await fetch(
-        `https://mern-personal-expense-tracker-backend.onrender.com/users/expenses/${expense._id}`,
+        `${BASE_URL}/users/expenses/${expense._id}`,
         {
           method: "PUT",
           headers: {

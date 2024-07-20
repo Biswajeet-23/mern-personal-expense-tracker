@@ -10,7 +10,12 @@ import {
   Heading,
   Input,
   Flex,
+  Box,
+  Center,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import { BASE_URL } from "../utils/config";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -21,15 +26,12 @@ const Login = () => {
   const handleRegister = async (event) => {
     try {
       event.preventDefault();
-      const response = await fetch(
-        "https://mern-personal-expense-tracker-backend.onrender.com/users/login",
-        {
-          method: "POST",
-          body: JSON.stringify({ username, password }),
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
       if (response.ok) {
         const data = await response.json();
         const { username, userId, token } = data;
@@ -48,38 +50,62 @@ const Login = () => {
 
   const handlePassword = (e) => setPassword(e.target.value);
 
+  const boxColor = useColorModeValue(
+    "hoverbutton.secondary",
+    "background.secondaryDark"
+  );
+  const inputColor = useColorModeValue("background.light", "background.dark");
+
   return (
     <>
-      <Flex alignItems="center" justifyContent="center">
-        <form onSubmit={handleRegister}>
-          <Heading marginTop={20}>Login</Heading>
-          <FormControl isRequired marginTop={20}>
-            <FormLabel>Username</FormLabel>
-            <Input
-              id="username"
-              type="text"
-              value={username}
-              onChange={handleUsername}
-            />
-            <FormLabel marginTop={5}>Password</FormLabel>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={handlePassword}
-            />
+      <Flex justifyContent={"center"} minHeight="90vh" alignItems={"center"}>
+        <Box
+          bg={boxColor}
+          width={"500px"}
+          borderRadius={15}
+          borderWidth={2}
+          borderColor={"white"}
+        >
+          <Flex
+            justifyContent="center"
+            direction="column"
+            alignItems="center"
+            height="100%"
+            mb={10}
+          >
+            <form onSubmit={handleRegister}>
+              <Heading marginTop={10}>Login</Heading>
+              <FormControl isRequired marginTop={20}>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  backgroundColor={inputColor}
+                  onChange={handleUsername}
+                />
+                <FormLabel marginTop={5}>Password</FormLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  backgroundColor={inputColor}
+                  onChange={handlePassword}
+                />
 
-            <Button
-              colorScheme="teal"
-              variant="outline"
-              width="100%"
-              type="submit"
-              marginTop={5}
-            >
-              Login
-            </Button>
-          </FormControl>
-        </form>
+                <Button
+                  colorScheme="teal"
+                  width="100%"
+                  type="submit"
+                  marginTop={5}
+                  mb={4}
+                >
+                  Login
+                </Button>
+              </FormControl>
+            </form>
+          </Flex>
+        </Box>
       </Flex>
     </>
   );

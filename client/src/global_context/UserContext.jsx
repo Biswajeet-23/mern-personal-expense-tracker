@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import useToken from "../custom_hook/useToken";
+import { BASE_URL } from "../utils/config";
 
 export const UserContext = createContext({});
 
@@ -19,13 +20,10 @@ export const UserProvider = ({ children }) => {
   }, [userInfo]);
 
   const logout = async () => {
-    await fetch(
-      "https://mern-personal-expense-tracker-backend.onrender.com/users/logout",
-      {
-        method: "POST",
-        credentials: "include",
-      }
-    );
+    await fetch(`${BASE_URL}/users/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
     removeToken();
     setUserInfo(null);
   };

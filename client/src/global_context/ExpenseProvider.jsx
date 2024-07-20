@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
+import { BASE_URL } from "../utils/config";
 
 export const ExpensesContext = createContext();
 
@@ -17,8 +18,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchExpenses = useCallback(async () => {
     try {
-      let url =
-        "https://mern-personal-expense-tracker-backend.onrender.com/users/expenses";
+      let url = `${BASE_URL}/users/expenses`;
       if (selectedCategory) {
         url += `?category=${selectedCategory}`;
       }
@@ -39,13 +39,10 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch(
-        "https://mern-personal-expense-tracker-backend.onrender.com/users/categories",
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/categories`, {
+        method: "GET",
+        credentials: "include",
+      });
       if (response.ok) {
         const data = await response.json();
         setCategories(data);

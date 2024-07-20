@@ -56,7 +56,7 @@ const Header = () => {
               }}
               _hover={{ color: linkHoverColor }}
             >
-              Login
+              <Text fontWeight="700">Login</Text>
             </Link>
             <Link
               to="/register"
@@ -66,7 +66,7 @@ const Header = () => {
               }}
               _hover={{ color: linkHoverColor }}
             >
-              Register
+              <Text fontWeight="700">Register</Text>
             </Link>
           </>
         )}

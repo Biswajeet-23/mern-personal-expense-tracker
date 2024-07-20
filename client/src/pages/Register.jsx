@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Box,
   Button,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Input,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import { BASE_URL } from "../utils/config";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -17,14 +20,11 @@ const Register = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-    const response = await fetch(
-      "https://mern-personal-expense-tracker-backend.onrender.com/users/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, email, password }),
+    });
     if (response.status === 201) {
       alert("registeration successful");
       setTimeout(() => {
@@ -39,45 +39,70 @@ const Register = () => {
 
   const handleEmail = (e) => setEmail(e.target.value);
 
+  const boxColor = useColorModeValue(
+    "hoverbutton.secondary",
+    "background.secondaryDark"
+  );
+  const inputColor = useColorModeValue("background.light", "background.dark");
+
   return (
     <>
-      <Flex alignItems="center" justifyContent="center">
-        <form onSubmit={handleRegister}>
-          <Heading marginTop={20}>Register</Heading>
-          <FormControl isRequired marginTop={20}>
-            <FormLabel>Username</FormLabel>
-            <Input
-              id="username"
-              type="text"
-              value={username}
-              onChange={handleUsername}
-            />
-            <FormLabel marginTop={5}>Email</FormLabel>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={handleEmail}
-            />
-            <FormLabel marginTop={5}>Password</FormLabel>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={handlePassword}
-            />
+      <Flex justifyContent={"center"} minHeight="90vh" alignItems={"center"}>
+        <Box
+          bg={boxColor}
+          width={"500px"}
+          borderRadius={15}
+          borderWidth={2}
+          borderColor={"white"}
+        >
+          <Flex
+            justifyContent="center"
+            direction="column"
+            alignItems="center"
+            height="100%"
+            mb={10}
+          >
+            <form onSubmit={handleRegister}>
+              <Heading marginTop={20}>Register</Heading>
+              <FormControl isRequired marginTop={20}>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={handleUsername}
+                  backgroundColor={inputColor}
+                />
+                <FormLabel marginTop={5}>Email</FormLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={handleEmail}
+                  backgroundColor={inputColor}
+                />
+                <FormLabel marginTop={5}>Password</FormLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={handlePassword}
+                  backgroundColor={inputColor}
+                />
 
-            <Button
-              colorScheme="teal"
-              variant="outline"
-              type="submit"
-              marginTop={5}
-              width="100%"
-            >
-              Register
-            </Button>
-          </FormControl>
-        </form>
+                <Button
+                  colorScheme="teal"
+                  type="submit"
+                  marginTop={5}
+                  width="100%"
+                  mb={4}
+                >
+                  Register
+                </Button>
+              </FormControl>
+            </form>
+          </Flex>
+        </Box>
       </Flex>
     </>
   );
