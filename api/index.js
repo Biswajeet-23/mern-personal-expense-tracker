@@ -14,13 +14,12 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = process.env.PORT;
-const host = process.env.HOSTNAME;
+const PORT = process.env.PORT || 4000;
 
 //routers
 app.use("/users", userRouter);
 
-app.listen(PORT, host, () => {
-  console.log(`server is running at http://${host}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`App is Listening on PORT ${PORT}`);
   dbConnect();
 });

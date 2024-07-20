@@ -17,6 +17,7 @@ const SelectCategory = ({
       borderWidth={2}
     >
       <option hidden>Select Category</option>
+      <option value="none">None</option>
       {categories.map((category) => (
         <option key={category._id} value={category.category}>
           {category.category}

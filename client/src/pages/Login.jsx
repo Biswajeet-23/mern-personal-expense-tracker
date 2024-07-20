@@ -69,6 +69,7 @@ const Login = () => {
             <Button
               colorScheme="teal"
               variant="outline"
+              width="100%"
               type="submit"
               marginTop={5}
             >

@@ -15,6 +15,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
@@ -66,6 +67,13 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
     }
   };
 
+  const bdColor = useColorModeValue(
+    "border.secondaryDark",
+    "background.secondary"
+  );
+  const deleteBtnColor = useColorModeValue("red", "#e8524d");
+  const editBtnColor = useColorModeValue("#bfb119", "#ede268");
+
   return (
     <Box ml={15}>
       <FormLabel>Expenses</FormLabel>
@@ -84,6 +92,9 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
               mb={4}
               width={500}
               direction={{ base: "column", sm: "row" }}
+              boxShadow={"lg"}
+              borderWidth="1px"
+              borderColor={bdColor}
             >
               <CardHeader width={190}>
                 <HStack spacing={1}>
@@ -119,13 +130,13 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
                     <Delete
                       size={30}
                       onClick={() => handleDeleteClick(expense._id)}
-                      color="red"
+                      color={deleteBtnColor}
                     />
                   </Box>
                   <Box cursor={"pointer"}>
                     <Edit
                       size={30}
-                      color="yellow"
+                      color={editBtnColor}
                       onClick={() => onEdit(expense)}
                     />
                   </Box>

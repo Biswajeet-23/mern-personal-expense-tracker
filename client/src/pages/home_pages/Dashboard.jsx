@@ -16,14 +16,18 @@ import {
 } from "recharts";
 import {
   Box,
+  Flex,
   Heading,
+  HStack,
   Text,
   useBreakpointValue,
+  useColorModeValue,
   useTheme,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { ExpensesContext } from "../../global_context/ExpenseProvider";
 import { motion } from "framer-motion";
+import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
 
 const MotionBox = motion(Box);
 
@@ -31,13 +35,16 @@ const Dashboard = () => {
   const { expenses } = useContext(ExpensesContext);
   const theme = useTheme();
 
-  // Ensure theme values are set, otherwise use default values
-  const bgColor = theme.colors.background?.light || "#E1F5FE";
-  const headingColor = theme.colors.text?.primary || "#2D3436";
-  const textColor = theme.colors.text?.secondary || "#636E72";
+  const headingColor = useColorModeValue("text.primary", "text.primaryDark");
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
   const chartBarColor = theme.colors.accent?.primary || "#FFAB91";
   const chartLineColor = theme.colors.accent?.secondary || "#A3C4F3";
   const containerWidth = useBreakpointValue({ base: "100%", md: "80%" });
+  const cardColor = useColorModeValue(
+    "hoverbutton.light",
+    "hoverbutton.secondaryDark"
+  );
+  const borderLine = useColorModeValue("background.light", "background.light");
 
   const categoryData = useMemo(() => {
     const data = {};
@@ -76,7 +83,6 @@ const Dashboard = () => {
   return (
     <MotionBox
       p={5}
-      bg={bgColor}
       borderRadius="md"
       boxShadow="lg"
       initial={{ opacity: 0, y: 20 }}
@@ -87,58 +93,70 @@ const Dashboard = () => {
         <Heading size="lg" mb={5} color={headingColor}>
           Spending by Category
         </Heading>
-        <ResponsiveContainer width="100%" height={400}>
-          <PieChart>
-            <Pie
-              data={categoryData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              outerRadius="80%"
-              fill={chartBarColor}
-              dataKey="value"
-            >
-              {categoryData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={getRandomColor()} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-        <Text mt={4} fontSize="lg" color={textColor}>
-          Min Expense: ${minExpense}
-          <br />
-          Max Expense: ${maxExpense}
-        </Text>
+        <Flex justifyContent={"space-between"} align={"center"}>
+          <ResponsiveContainer width="50%" height={300}>
+            <PieChart>
+              <Pie
+                data={categoryData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius="80%"
+                dataKey="value"
+              >
+                {categoryData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={getRandomColor()} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+          <Box mr={10}>
+            <Flex direction={"column"} alignItems={"center"}>
+              <Flex width="300px" justify={"space-between"}>
+                <Text>Min</Text>
+                <Text>Max</Text>
+              </Flex>
+              <Box
+                borderRadius={25}
+                bg={"black"}
+                mt={3}
+                width={"350px"}
+                bgColor={cardColor}
+                height="70px"
+                borderColor={borderLine}
+                borderWidth={2}
+                padding={4}
+              >
+                <Flex justifyContent={"space-between"}>
+                  <HStack>
+                    <Box>
+                      <CurrencyRupee size={22} />
+                    </Box>
+                    <Text fontSize="20" fontWeight="900">
+                      {minExpense}
+                    </Text>
+                  </HStack>
+                  <HStack>
+                    <Box>
+                      <CurrencyRupee size={22} />
+                    </Box>
+                    <Text fontSize="20" fontWeight="900">
+                      {maxExpense}
+                    </Text>
+                  </HStack>
+                </Flex>
+              </Box>
+            </Flex>
+          </Box>
+        </Flex>
       </Box>
-      <Box>
-        <Heading size="lg" mb={5} color={headingColor}>
-          Spending Over Time
-        </Heading>
-        <ResponsiveContainer width="100%" height={350}>
-          <BarChart
-            data={formattedExpenses}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="amount" fill={chartBarColor} />
-          </BarChart>
-        </ResponsiveContainer>
-      </Box>
+
       <Box mt={10}>
         <Heading size="lg" mb={5} color={headingColor}>
           Spending Over Time
         </Heading>
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="65%" height={350}>
           <LineChart
             data={formattedExpenses}
             margin={{
@@ -149,8 +167,15 @@ const Dashboard = () => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
+            <XAxis
+              dataKey="date"
+              tick={{
+                fill: useColorModeValue("text.primary", "white"),
+              }}
+            />
+            <YAxis
+              tick={{ fill: useColorModeValue("text.primary", "white") }}
+            />
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="amount" stroke={chartLineColor} />

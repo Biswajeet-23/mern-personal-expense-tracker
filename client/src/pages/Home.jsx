@@ -1,35 +1,56 @@
-import { Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Expenses from "../components/Expenses";
 import SideBar from "../components/SideBar";
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import Dashboard from "./home_pages/Dashboard";
-import Settings from "./home_pages/Settings";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Home = () => {
   const { pathname } = useLocation();
+  const sidebarBg = useColorModeValue(
+    "background.secondary",
+    "background.secondaryDark"
+  );
+  const mainBg = useColorModeValue("background.light", "background.dark");
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+
   return (
     <Grid
       templateAreas={`
-                  "aside main"`}
+        "aside main"
+      `}
       gridTemplateColumns={"200px 1fr"}
       gridTemplateRows={"1fr"}
       gap="4"
       height={"90vh"}
-      color="blackAlpha.700"
+      color={textColor}
       fontWeight="bold"
     >
-      <GridItem pl="2" bg="pink.300" area={"aside"}>
+      <GridItem
+        pl="2"
+        bg={sidebarBg}
+        area={"aside"}
+        borderRightWidth="3px"
+        borderTopWidth="3px"
+        borderBottomWidth="3px"
+        borderColor={useColorModeValue(
+          "borders.default",
+          "borders.defaultDark"
+        )}
+        borderRadius="md"
+      >
         <SideBar />
       </GridItem>
-      <GridItem pl="2" bg="white" area={"main"}>
-        {pathname == "/" ? <Expenses /> : <Outlet />}
+      <GridItem
+        pl="2"
+        bg={mainBg}
+        area={"main"}
+        borderRadius="md"
+        borderWidth="3px" // Increased border width
+        borderColor={useColorModeValue(
+          "borders.default",
+          "borders.defaultDark"
+        )}
+      >
+        {pathname === "/" ? <Expenses /> : <Outlet />}
       </GridItem>
     </Grid>
   );

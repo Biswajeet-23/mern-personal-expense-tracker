@@ -38,23 +38,6 @@ const Register = () => {
 
   return (
     <>
-      {/* <form className="register" onSubmit={handleRegister}>
-        <h1>Register</h1>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={handleUsername}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={handlePassword}
-        />
-        <button>Register</button>
-      </form> */}
-
       <Flex alignItems="center" justifyContent="center">
         <form onSubmit={handleRegister}>
           <Heading marginTop={20}>Register</Heading>
@@ -86,6 +69,7 @@ const Register = () => {
               variant="outline"
               type="submit"
               marginTop={5}
+              width="100%"
             >
               Register
             </Button>

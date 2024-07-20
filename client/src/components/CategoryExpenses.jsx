@@ -11,6 +11,7 @@ import {
   Divider,
   HStack,
   Flex,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { CurrencyRupee } from "@styled-icons/heroicons-solid/CurrencyRupee";
 import { Category } from "@styled-icons/boxicons-solid/Category";
@@ -73,54 +74,79 @@ const CategoryExpenses = ({ expenses }) => {
     .sort(([, a], [, b]) => b - a)
     .map(([category, amount]) => ({ category, amount }));
 
+  const bdColor = useColorModeValue(
+    "border.secondaryDark",
+    "background.secondary"
+  );
+
   return (
-    <Box p={5} borderWidth={1} borderRadius="md" mb={4} ml={10}>
+    <Box mb={4} ml={10}>
       <Heading size="md" mb={4}>
         Summary
       </Heading>
-      <Select
-        mb={4}
-        value={timePeriod}
-        onChange={(e) => setTimePeriod(e.target.value)}
-        width="120px"
-        borderColor="#dedcdc"
-        backgroundColor="#2D3748"
-        color={"white"}
-        borderWidth={2}
-      >
-        <option value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-      </Select>
-      <Card mb={4} width="220px">
-        <CardBody>
-          <Flex alignItems={"center"} gap={7}>
-            <Box>
-              <PiggyBank size={30} />
-            </Box>
-            <Flex direction={"column"}>
-              <HStack>
-                <Heading size="sm">Total Spending</Heading>
-              </HStack>
-              <HStack mt={2}>
-                <Box>
-                  <CurrencyRupee size={22} />
-                </Box>
-                <Text fontSize="xl" fontWeight="bold">
-                  {totalSpending.toFixed(2)}
-                </Text>
-              </HStack>
+      <Box borderWidth={1} borderRadius="md" p={2}>
+        <Select
+          mb={4}
+          value={timePeriod}
+          onChange={(e) => setTimePeriod(e.target.value)}
+          width="120px"
+          borderColor="#dedcdc"
+          backgroundColor="#2D3748"
+          color={"white"}
+          borderWidth={2}
+        >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </Select>
+        <Card
+          mb={4}
+          width="220px"
+          boxShadow={"lg"}
+          borderWidth="1px"
+          borderColor={bdColor}
+        >
+          <CardBody>
+            <Flex alignItems={"center"} gap={7}>
+              <Box>
+                <PiggyBank size={30} />
+              </Box>
+              <Flex direction={"column"}>
+                <HStack>
+                  <Heading size="sm">Total Spending</Heading>
+                </HStack>
+                <HStack mt={2}>
+                  <Box>
+                    <CurrencyRupee size={22} />
+                  </Box>
+                  <Text fontSize="xl" fontWeight="bold">
+                    {totalSpending.toFixed(2)}
+                  </Text>
+                </HStack>
+              </Flex>
             </Flex>
-          </Flex>
-        </CardBody>
-      </Card>
+          </CardBody>
+        </Card>
+      </Box>
       <Heading size="sm" mt={4} mb={3}>
         Spending by Category
       </Heading>
-      <Box maxHeight="200px" overflowY="auto" p={2}>
+      <Box
+        maxHeight="200px"
+        overflowY="auto"
+        p={2}
+        borderWidth={1}
+        borderRadius="md"
+      >
         <Stack spacing={2}>
           {sortedCategories.map(({ category, amount }) => (
-            <Card key={category} maxWidth="160px">
+            <Card
+              key={category}
+              maxWidth="160px"
+              boxShadow={"lg"}
+              borderWidth="1px"
+              borderColor={bdColor}
+            >
               <CardBody>
                 <Flex direction={"column"} gap={1}>
                   <HStack>

@@ -59,6 +59,7 @@ export const ExpenseProvider = ({ children }) => {
         expenses,
         categories,
         selectedCategory,
+        setExpenses,
         setSelectedCategory,
         fetchExpenses,
       }}

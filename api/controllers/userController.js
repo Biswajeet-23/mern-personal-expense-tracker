@@ -112,6 +112,13 @@ export const getUserExpenses = async (req, res) => {
     const userId = req.userId;
     const { category } = req.query;
     const query = { userId };
+    if (category === "none") {
+      const expenses = await expenseModel.find(query);
+      if (!expenses) {
+        return res.status(400).send({ message: "User not found" });
+      }
+      return res.status(200).send(expenses);
+    }
     if (category) {
       query.category = category;
     }
