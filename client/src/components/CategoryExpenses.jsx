@@ -79,6 +79,9 @@ const CategoryExpenses = ({ expenses }) => {
     "background.secondary"
   );
 
+  const textColor = useColorModeValue("text.primary", "text.primaryDark");
+  const bgColor = useColorModeValue("#3182CE", "#90CDF4");
+
   return (
     <Box mb={4} ml={10}>
       <Heading size="md" mb={4}>
@@ -91,8 +94,8 @@ const CategoryExpenses = ({ expenses }) => {
           onChange={(e) => setTimePeriod(e.target.value)}
           width="120px"
           borderColor="#dedcdc"
-          backgroundColor="#2D3748"
-          color={"white"}
+          backgroundColor={bgColor}
+          color={textColor}
           borderWidth={2}
         >
           <option value="daily">Daily</option>
