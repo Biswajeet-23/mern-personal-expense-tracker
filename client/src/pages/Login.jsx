@@ -49,9 +49,18 @@ const Login = () => {
   const inputColor = useColorModeValue("#e0e0e0", "#333333");
   const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
   const shadowDark = useColorModeValue("#bebebe", "#141414");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
     <Flex
+      style={neumorphismStyle}
       justifyContent="center"
       minHeight="90vh"
       alignItems="center"

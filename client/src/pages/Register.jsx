@@ -45,12 +45,7 @@ const Register = () => {
 
   return (
     <>
-      <Flex
-        justifyContent="center"
-        minHeight="90vh"
-        alignItems="center"
-        bg={boxBg}
-      >
+      <Flex justifyContent="center" minHeight="90vh" alignItems="center">
         <Box
           bg={boxBg}
           width="500px"
