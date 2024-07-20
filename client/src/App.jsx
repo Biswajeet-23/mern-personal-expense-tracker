@@ -10,6 +10,7 @@ import Dashboard from "./pages/home_pages/Dashboard";
 import Settings from "./pages/home_pages/Settings";
 import { ExpenseProvider } from "./global_context/ExpenseProvider";
 import PrivateRoute from "./components/private_route/PrivateRoute.jsx";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   return (

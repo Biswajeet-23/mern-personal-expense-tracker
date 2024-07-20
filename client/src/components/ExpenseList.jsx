@@ -101,13 +101,13 @@ const ExpenseList = ({ expenses, fetchExpenses, onEdit }) => {
               style={neumorphismStyle}
             >
               <HStack justifyContent="space-between">
-                <HStack spacing={1}>
+                <HStack spacing={1} flex={1}>
                   <Box>
                     <Category size={25} />
                   </Box>
                   <Text>{expense.category}</Text>
                 </HStack>
-                <HStack justifyContent="space-between" width="100%">
+                <HStack justifyContent="space-between" flex={2}>
                   <Stack spacing={3}>
                     <HStack>
                       <Box>

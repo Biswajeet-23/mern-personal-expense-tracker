@@ -39,18 +39,31 @@ const Register = () => {
 
   const boxBg = useColorModeValue("#f0f0f3", "#1e1e1e");
   const inputBg = useColorModeValue("#e0e0e0", "#333333");
-  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
-  const shadowDark = useColorModeValue("#bebebe", "#141414");
   const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
+
+  const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
+  const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+
+  const neumorphismStyle = {
+    backgroundColor: bgColor,
+    borderRadius: "15px",
+    borderWidth: "2px",
+    boxShadow: `4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`,
+  };
 
   return (
     <>
-      <Flex justifyContent="center" minHeight="90vh" alignItems="center">
+      <Flex
+        justifyContent="center"
+        minHeight="90vh"
+        alignItems="center"
+        style={neumorphismStyle}
+      >
         <Box
-          bg={boxBg}
+          boxShadow={`10px 10px 20px ${shadowDark}, -10px -10px 20px ${shadowLight}`}
           width="500px"
           borderRadius="15px"
-          boxShadow={`8px 8px 16px ${shadowDark}, -8px -8px 16px ${shadowLight}`}
           padding="40px"
         >
           <Flex

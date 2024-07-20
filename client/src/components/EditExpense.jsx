@@ -119,23 +119,14 @@ const EditExpense = ({ isOpen, onClose, expense, fetchExpenses }) => {
         <ModalBody>
           <FormControl id="date" mb={4} isRequired>
             <FormLabel>Date</FormLabel>
-            <Box
-              p={2}
-              borderWidth="1px"
-              borderRadius="md"
-              style={{
-                backgroundColor: bgColor,
-                borderColor: bdColor,
-                borderRadius: "15px",
-                borderWidth: "2px",
-              }}
-            >
+            <Box p={2}>
               <DatePicker
                 id="date"
                 showIcon
                 dateFormat="dd/MM/yyyy"
                 selected={date}
                 onChange={(date) => setDate(date)}
+                customInput={<Input style={neumorphismStyle} />}
               />
             </Box>
           </FormControl>

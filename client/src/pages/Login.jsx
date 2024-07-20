@@ -46,8 +46,9 @@ const Login = () => {
   const handlePassword = (e) => setPassword(e.target.value);
 
   const boxColor = useColorModeValue("#f0f0f3", "#1e1e1e");
-  const inputColor = useColorModeValue("#e0e0e0", "#333333");
-
+  const inputBg = useColorModeValue("#e0e0e0", "#333333");
+  const inputColor = useColorModeValue("#e0e0e0", "#1a1a1a");
+  const inputBorder = useColorModeValue("#e0e0e0", "#1f1f1f");
   const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
   const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
   const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
@@ -65,10 +66,10 @@ const Login = () => {
       justifyContent="center"
       minHeight="90vh"
       alignItems="center"
-      bg={boxColor}
+      bg={bgColor}
     >
       <Box
-        bg={boxColor}
+        bg={bgColor}
         width="500px"
         borderRadius="15px"
         boxShadow={`10px 10px 20px ${shadowDark}, -10px -10px 20px ${shadowLight}`}

@@ -160,7 +160,7 @@ const AddExpenses = ({ fetchExpenses }) => {
         colorScheme="blue"
         width="140px"
         boxShadow={`4px 4px 8px ${shadowDark}, -4px -4px 8px ${shadowLight}`}
-        borderRadius="5px"
+        borderRadius="10px"
         padding="5px 10px"
       >
         Add Expense
