@@ -1,19 +1,32 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../global_context/UserContext";
-import { Button, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Text,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 
 const Header = () => {
   const { token, logout } = useContext(UserContext);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleLogout = async () => {
+    toast({
+      title: "Logout successful.",
+      description: "You have successfully logged out.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
     await logout();
     navigate("/login");
   };
 
-  const headerBg = useColorModeValue("#f0f0f3", "#1e1e1e");
   const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
   const linkColor = useColorModeValue("#f97316", "#f97316");
   const linkHoverColor = useColorModeValue("#4a90e2", "#4a90e2");

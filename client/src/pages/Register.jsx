@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -9,6 +9,7 @@ import {
   Heading,
   Input,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { BASE_URL } from "../utils/config";
 
@@ -17,6 +18,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -26,21 +28,32 @@ const Register = () => {
       body: JSON.stringify({ username, email, password }),
     });
     if (response.status === 201) {
-      alert("Registration successful");
+      toast({
+        title: "Registration successful.",
+        description: "You have successfully registered in.",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
       setTimeout(() => {
         navigate("/login");
       }, 500);
-    } else alert("Registration failed");
+    } else
+      toast({
+        title: "Registration failed.",
+        description: "You have not been registered",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
   };
 
   const handleUsername = (e) => setUsername(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
 
-  const boxBg = useColorModeValue("#f0f0f3", "#1e1e1e");
   const inputBg = useColorModeValue("#e0e0e0", "#333333");
   const textColor = useColorModeValue("#2d2d2d", "#f5f5f5");
-
   const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
   const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
   const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");

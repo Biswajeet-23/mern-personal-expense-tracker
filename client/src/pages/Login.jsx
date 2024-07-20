@@ -10,6 +10,7 @@ import {
   Flex,
   Box,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { BASE_URL } from "../utils/config";
 
@@ -18,6 +19,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUserInfo, setToken } = useContext(UserContext);
+  const toast = useToast();
 
   const handleRegister = async (event) => {
     try {
@@ -29,13 +31,26 @@ const Login = () => {
         credentials: "include",
       });
       if (response.ok) {
+        toast({
+          title: "Login successful.",
+          description: "You have successfully logged in.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
         const data = await response.json();
         const { username, userId, token } = data;
         setUserInfo({ id: userId, username });
         setToken(token);
         navigate("/");
       } else {
-        alert("login failed");
+        toast({
+          title: "Login failed.",
+          description: "You have not logged in.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.error(err.message);

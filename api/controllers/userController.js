@@ -10,6 +10,19 @@ config();
 export const userRegister = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    const existingUser = await userModel.findOne({
+      $or: [{ email }, { username }],
+    });
+
+    if (existingUser) {
+      return res.status(400).send({
+        error: "Email or username is already taken",
+        errorMessage:
+          existingUser.email === email
+            ? "Email is already in use"
+            : "Username is already in use",
+      });
+    }
     const userDoc = await userModel.create({
       username,
       email,
