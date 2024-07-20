@@ -10,7 +10,12 @@ config("./.env");
 const app = express();
 
 //middlewares
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://mern-personal-expense-tracker-frontend.onrender.com",
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
