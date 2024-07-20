@@ -68,10 +68,10 @@ The Personal Expense Tracker application allows users to manage their expenses e
 1. **Clone the repository:**
     ```bash
     https://github.com/Biswajeet-23/mern-personal-expense-tracker
-    cd api
+    cd personal-expense-tracker
     ```
 
-2. **Install dependencies:**
+2. **Install dependencies:**Navigate to the `api` directory and start the backend application:
     ```bash
     npm install
     ```
@@ -113,7 +113,7 @@ The Personal Expense Tracker application allows users to manage their expenses e
 
 
 ### Deployed to Render (Front-end)
-- Clik on the link to visit the live website [personal-expense-tracker](https://mern-personal-expense-tracker-frontend.onrender.com/)
+- Clik on the link to visit the live website [personal-expense-tracker](https://mern-personal-expense-tracker-frontend.onrender.com/).
 
 ## Additional Notes
 
