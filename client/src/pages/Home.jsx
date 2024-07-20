@@ -2,6 +2,8 @@ import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Expenses from "../components/Expenses";
 import SideBar from "../components/SideBar";
 import { Outlet, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../global_context/UserContext";
 
 const Home = () => {
   const { pathname } = useLocation();
@@ -11,6 +13,8 @@ const Home = () => {
   );
   const mainBg = useColorModeValue("background.light", "background.dark");
   const textColor = useColorModeValue("text.primary", "text.primaryDark");
+  const { userInfo } = useContext(UserContext);
+  const username = userInfo?.username;
 
   return (
     <Grid
@@ -37,7 +41,7 @@ const Home = () => {
         )}
         borderRadius="md"
       >
-        <SideBar />
+        <SideBar name={username} />
       </GridItem>
       <GridItem
         pl="2"
