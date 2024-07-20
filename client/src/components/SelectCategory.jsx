@@ -8,7 +8,7 @@ const SelectCategory = ({
 }) => {
   const textColor = useColorModeValue("text.primary", "text.primaryDark");
   const bgColor = useColorModeValue(
-    "button.secondary",
+    "buttons.secondary",
     "hoverbutton.secondary"
   );
 
@@ -19,6 +19,7 @@ const SelectCategory = ({
       width={270}
       borderColor="#dedcdc"
       bg={bgColor}
+      backgroundColor={bgColor}
       color={textColor}
       borderWidth={2}
     >
