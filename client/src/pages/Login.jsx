@@ -47,8 +47,9 @@ const Login = () => {
 
   const boxColor = useColorModeValue("#f0f0f3", "#1e1e1e");
   const inputColor = useColorModeValue("#e0e0e0", "#333333");
+
   const shadowLight = useColorModeValue("#ffffff", "#3b3b3b");
-  const shadowDark = useColorModeValue("#bebebe", "#141414");
+  const shadowDark = useColorModeValue("#b0b0b0", "#0d0d0d");
   const bgColor = useColorModeValue("#e0e0e0", "#1a1a1a");
 
   const neumorphismStyle = {
