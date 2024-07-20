@@ -14,10 +14,10 @@ import { Settings as SettingsIcon } from "@styled-icons/feather/Settings";
 import { NavLink, useLocation } from "react-router-dom";
 import { UserContext } from "../global_context/UserContext";
 
-const SideBar = ({ name }) => {
+const SideBar = () => {
   const location = useLocation();
-  // const { userInfo } = useContext(UserContext);
-  // const username = userInfo?.username;
+  const { userInfo } = useContext(UserContext);
+  const username = userInfo?.username;
 
   const linkStyles = {
     as: NavLink,
@@ -64,7 +64,7 @@ const SideBar = ({ name }) => {
         <Avatar size="md" />
         <Box mt={2}>
           <Text fontSize="lg" fontWeight="bold" color={textColor}>
-            {name}
+            {username}
           </Text>
         </Box>
       </Flex>

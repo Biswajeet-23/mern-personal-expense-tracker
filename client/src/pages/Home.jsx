@@ -13,8 +13,6 @@ const Home = () => {
   );
   const mainBg = useColorModeValue("background.light", "background.dark");
   const textColor = useColorModeValue("text.primary", "text.primaryDark");
-  const { userInfo } = useContext(UserContext);
-  const username = userInfo?.username;
 
   return (
     <Grid
@@ -41,7 +39,7 @@ const Home = () => {
         )}
         borderRadius="md"
       >
-        <SideBar name={username} />
+        <SideBar />
       </GridItem>
       <GridItem
         pl="2"
