@@ -72,7 +72,8 @@ The Personal Expense Tracker application allows users to manage their expenses e
     cd personal-expense-tracker
     ```
 
-2. **Install dependencies:**Navigate to the `api` directory and start the backend application:
+2. **Install dependencies:**
+    Navigate to the `api` directory and start the backend application:
     ```bash
     npm install
     ```
